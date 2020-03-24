@@ -4,12 +4,14 @@ import com.komarov.patel.research.methodology.esportservice.model.User;
 import com.komarov.patel.research.methodology.esportservice.service.SecurityService;
 import com.komarov.patel.research.methodology.esportservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+import javax.validation.Valid;
+
+@Controller
 public class UserController {
     @Autowired
     private UserService userService;
@@ -18,13 +20,49 @@ public class UserController {
     private SecurityService securityService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@RequestBody User userForm) {
-        userService.save(userForm);
+    public String registration(@ModelAttribute("user") User user, BindingResult result) {
 
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        User existing = userService.findByUsername(user.getUsername());
 
-        return "ok";
+        if(existing != null) {
+            result.rejectValue("username", null, "There is already an account registered with that username");
+        }
+        if(!user.getPassword().equals(user.getPasswordConfirm())) {
+            result.rejectValue("password", null, "There password and confirmation DO NOT MATCH!");
+        }
+
+        if (result.hasErrors()){
+            return "registration";
+        }
+
+        userService.save(user);
+
+        //securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        return "redirect:/login";
     }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "registration";
+    }
+
+//    @PostMapping
+//    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
+//                                      BindingResult result){
+//
+//        User existing = userService.findByEmail(userDto.getEmail());
+//        if (existing != null){
+//            result.rejectValue("email", null, "There is already an account registered with that email");
+//        }
+//
+//        if (result.hasErrors()){
+//            return "registration";
+//        }
+//
+//        userService.save(userDto);
+//        return "redirect:/registration?success";
+//    }
 
     @RequestMapping("/welcome")
     public String index() {

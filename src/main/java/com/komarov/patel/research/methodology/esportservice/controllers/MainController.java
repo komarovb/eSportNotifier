@@ -15,8 +15,11 @@ import java.net.URL;
 @Controller
 public class MainController {
 
-    @Value("${data.source.api-token}")
+    @Value("${data.source.panda-api-token}")
     private String apiToken;
+
+    @Value("${data.source.panda-url}")
+    private String pandaUrl;
 
     /**
      * Public root endpoint returning the next 10 matches for all eSport disciplines
@@ -40,7 +43,7 @@ public class MainController {
         StringBuilder content = new StringBuilder();
         if(apiToken != null) {
             try {
-                URL url = new URL("https://api.pandascore.co/csgo/matches/upcoming?token=" + apiToken);
+                URL url = new URL(pandaUrl + "csgo/matches/upcoming?token=" + apiToken);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 JSONParser parse = new JSONParser();
                 con.setRequestMethod("GET");
