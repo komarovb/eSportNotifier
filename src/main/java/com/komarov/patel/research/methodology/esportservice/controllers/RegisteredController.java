@@ -4,6 +4,7 @@ import com.komarov.patel.research.methodology.esportservice.model.*;
 import com.komarov.patel.research.methodology.esportservice.repository.GameRepository;
 import com.komarov.patel.research.methodology.esportservice.repository.UserRepository;
 import com.komarov.patel.research.methodology.esportservice.service.DataSourceService;
+import com.komarov.patel.research.methodology.esportservice.service.EmailService;
 import com.komarov.patel.research.methodology.esportservice.service.NotificationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,9 @@ public class RegisteredController {
     NotificationsService notificationsService;
 
     @Autowired
+    EmailService emailService;
+
+    @Autowired
     GameRepository gameRepository;
 
     @Autowired
@@ -42,6 +46,9 @@ public class RegisteredController {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         notificationsService.setNotification(user, matchId, teamId);
+        if(!user.isInitialNotificationSent()){
+            emailService.sendInitialNotification(user);
+        }
         // Trick to redirect back to the previous URL
         return "redirect:" + request.getHeader("Referer");
 //        return "redirect:/registered/notifications";
@@ -52,6 +59,7 @@ public class RegisteredController {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         notificationsService.deleteNotification(user, matchId, teamId);
+
         // Trick to redirect back to the previous URL
         return "redirect:" + request.getHeader("Referer");
 //        return "redirect:/registered/notifications";

@@ -22,6 +22,8 @@ public class User {
 
     private String password;
 
+    private boolean initialNotificationSent = false;
+
 
     @OneToMany(mappedBy="user")
     private List<Notification> notifications;

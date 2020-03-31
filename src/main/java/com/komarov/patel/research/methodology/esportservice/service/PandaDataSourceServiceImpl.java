@@ -10,7 +10,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
@@ -18,8 +17,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
