@@ -3,6 +3,9 @@ package com.komarov.patel.research.methodology.esportservice.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,6 +21,10 @@ public class User {
     private String name;
 
     private String password;
+
+
+    @OneToMany(mappedBy="user")
+    private List<Notification> notifications;
 
     @Transient
     private String passwordConfirm;

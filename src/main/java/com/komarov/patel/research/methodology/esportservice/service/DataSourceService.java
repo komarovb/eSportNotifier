@@ -17,4 +17,6 @@ public interface DataSourceService {
     List<Match> pastMatches(Game game, HashMap<String, String> params);
     List<Match> pastMatches(Game game, Team team);
     List<Match> pastMatches(long gameId, int page);
+
+    Team getTeam(Game game, long teamId);
 }

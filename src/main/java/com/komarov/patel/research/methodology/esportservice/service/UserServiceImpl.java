@@ -3,6 +3,7 @@ package com.komarov.patel.research.methodology.esportservice.service;
 import com.komarov.patel.research.methodology.esportservice.model.User;
 import com.komarov.patel.research.methodology.esportservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

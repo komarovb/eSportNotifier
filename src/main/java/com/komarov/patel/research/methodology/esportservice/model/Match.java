@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class Match {
-    // Match properties
+    private long id;
     private Date beginAt;
     private Date endAt;
     private Team winner;

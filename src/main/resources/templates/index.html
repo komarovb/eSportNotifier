@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -12,6 +13,9 @@
 </head>
 <body>
 
+<div sec:authorize="isAuthenticated()">
+    Authenticated as <span sec:authentication="name"></span></div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -22,11 +26,6 @@
                     <h2><a class="game-link" th:href="@{/game/{gameId}(gameId = ${game.id})}">
                         <span th:text="${game.name}"></span>
                     </a></h2>
-                    <div th:if="${game.matches != null}" class="match-wrapper">
-                        <div class="row">
-
-                        </div>
-                    </div>
                     <table th:if="${game.matches != null}" class="table match-wrapper">
                         <thead class="thead-light">
                         <tr>
@@ -40,9 +39,14 @@
                         <tr th:each="match : ${game.matches}">
                             <td th:text="${match.name}">Name...</td>
                             <td class="teams">
-                                <div>
+                                <div sec:authorize="!isAuthenticated()">
                                     [<span th:each="team, iterStat : ${match.teams}"
                                            th:text="${iterStat.last}? ${team.name} : ${team.name} + ', '">Team name...</span>]
+                                </div>
+
+                                <div sec:authorize="isAuthenticated()">
+                                    [<a class="team-link"  th:each="team, iterStat : ${match.teams}"
+                                        th:href="@{/registered/{gameId}/{teamId}(gameId = ${game.id}, teamId = ${team.id})}" th:text="${iterStat.last}? ${team.name} : ${team.name} + ', '">Team name...</a>]
                                 </div>
                             </td>
                             <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>

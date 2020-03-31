@@ -60,7 +60,13 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
 
     @Override
     public List<Match> upcomingMatches(Game game, Team team) {
-        String urlBit = "/matches/upcoming";
+        if(game != null & team != null) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("page[size]", "30");
+            params.put("page[number]", String.valueOf(1));
+            params.put("search[name]", team.getName());
+            return this.upcomingMatches(game, params);
+        }
         return null;
     }
 
@@ -91,7 +97,13 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
 
     @Override
     public List<Match> pastMatches(Game game, Team team) {
-        String urlBit = "/matches/past";
+        if(game != null && team != null) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("page[size]", "30");
+            params.put("page[number]", String.valueOf(1));
+            params.put("search[name]", team.getName());
+            return this.pastMatches(game, params);
+        }
         return null;
     }
 
@@ -103,6 +115,37 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
             params.put("page[size]", "50");
             params.put("page[number]", String.valueOf(page));
             return this.pastMatches(game, params);
+        }
+        return null;
+    }
+
+    /**
+     * Method which tries to find a team information in the data source
+     *
+     * @param game
+     * @param teamId
+     * @return Instance of Team class
+     */
+    @Override
+    public Team getTeam(Game game, long teamId) {
+        if(game != null) {
+            String urlBit = "/teams";
+            HashMap<String, String> params = new HashMap<>();
+            params.put("filter[id]", String.valueOf(teamId));
+            String requestUrl = buildPandaUrl(urlBit, game.getGameSlug(), params);
+            String data = getData(requestUrl);
+            JSONParser parser = new JSONParser();
+            try {
+                JSONArray jsonTeams = (JSONArray)parser.parse(data);
+                JSONObject team = (JSONObject) jsonTeams.get(0);
+                String name = (String) team.get("name");
+                String imageUrl = (String) team.get("image_url");
+
+                return new Team(teamId, name, imageUrl);
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
         }
         return null;
     }
@@ -151,10 +194,17 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
                 String beginAt = (String) jsonMatch.get("begin_at");
                 String endAt = (String) jsonMatch.get("end_at");
                 Object win = jsonMatch.get("winner_id");
+                Object identifier = jsonMatch.get("id");
                 long winnerId = 0;
                 if(win != null) {
                     winnerId = (long) win;
                 }
+
+                long id = 0;
+                if(identifier != null) {
+                    id = (long) identifier;
+                }
+
                 String matchType = (String) jsonMatch.get("match_type");
                 long numGames = (long) jsonMatch.get("number_of_games");
                 if(matchType != null && numGames != 0) {
@@ -185,6 +235,7 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
 
                 // Creating new Match object
                 Match match = new Match();
+                match.setId(id);
                 match.setName(name);
                 match.setWinnerId(winnerId);
                 match.setMatchType(matchType);

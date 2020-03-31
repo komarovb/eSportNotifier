@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 
-    <title th:text="${game.name} + ' matches'">Game matches</title>
+    <title th:text="${team.name} + ' matches'">Team matches</title>
 </head>
 <body>
 
@@ -18,8 +18,8 @@
         <div class="col-md-10 col-md-offset-1">
             <h1 th:if="${errors}">Something went wrong! Please try again later!</h1>
             <div th:if="!${errors}" class="game-list">
-                <h1 th:text="${game.name}">Games</h1>
-                <h2>Upcoming matches</h2>
+                <h1 th:text="${game.name}">Game</h1>
+                <h2 th:text="${team.name} + ' upcoming matches'">Upcoming matches</h2>
                 <table th:if="${upcomingMatches != null}" class="table match-wrapper">
                     <thead class="thead-light">
                     <tr>
@@ -49,6 +49,11 @@
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>
                                     <img th:if="${match.leagueImg != null}" class="league-img" th:title="${match.leagueName}" th:src="${match.leagueImg}"></img>
                                 </span>
+                        </td>
+                        <td>
+                            <form method="POST" th:action="@{/registered/notifications(teamId=${team.id}, matchId=${match.id})}">
+                                <button type="submit" name="submit" value="value" class="link-button">Set notification</button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
