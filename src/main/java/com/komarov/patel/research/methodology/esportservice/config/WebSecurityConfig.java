@@ -29,12 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/resources/**", "/registration", "/upcoming/*", "/webjars/**").permitAll()
+                .antMatchers("/", "/resources/**", "/registration", "/upcoming/*", "/webjars/**", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .usernameParameter("username")
-                .passwordParameter("password").permitAll()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/welcome", true).permitAll()
                 .and()
                 .logout()
                 .permitAll()

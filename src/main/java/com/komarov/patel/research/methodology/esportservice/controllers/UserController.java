@@ -47,24 +47,13 @@ public class UserController {
         return "registration";
     }
 
-//    @PostMapping
-//    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
-//                                      BindingResult result){
-//
-//        User existing = userService.findByEmail(userDto.getEmail());
-//        if (existing != null){
-//            result.rejectValue("email", null, "There is already an account registered with that email");
-//        }
-//
-//        if (result.hasErrors()){
-//            return "registration";
-//        }
-//
-//        userService.save(userDto);
-//        return "redirect:/registration?success";
-//    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model) {
+        return "login";
+    }
 
     @RequestMapping("/welcome")
+    @ResponseBody
     public String index() {
         return "Welcome, authorized user!";
     }
