@@ -12,3 +12,7 @@ h1 {
 .game-link:hover {
     text-decoration: none !important;
 }
+.league-img {
+    max-width: 42px;
+    max-height: 42px;
+}

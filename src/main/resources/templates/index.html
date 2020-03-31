@@ -41,14 +41,17 @@
                             <td th:text="${match.name}">Name...</td>
                             <td class="teams">
                                 <div>
-                                    [<span th:each="team, iterStat : ${match.teams}" th:text="${iterStat.last}? ${team.name} : ${team.name} + ', '">Team name...</span>]
+                                    [<span th:each="team, iterStat : ${match.teams}"
+                                           th:text="${iterStat.last}? ${team.name} : ${team.name} + ', '">Team name...</span>]
                                 </div>
                             </td>
-<!--                            <td th:text="${match.teams}">Team 1...</td>-->
-<!--                            <td>VS</td>-->
-<!--                            <td th:text="${match.teams}">Team 2...</td>-->
                             <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>
-                            <td th:text="${match.leagueName}">League...</td>
+                            <td>
+                                <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
+                                    <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>
+                                    <img th:if="${match.leagueImg != null}" class="league-img" th:title="${match.leagueName}" th:src="${match.leagueImg}"></img>
+                                </span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
