@@ -16,6 +16,7 @@ h1 {
     max-width: 42px;
     max-height: 42px;
 }
-.team-link {
-
+.team-h-img {
+    max-width: 64px;
+    max-height: 64px;
 }

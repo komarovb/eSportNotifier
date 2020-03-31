@@ -30,6 +30,12 @@ public class NotificationsServiceImpl implements NotificationsService {
     }
 
     @Override
+    public void deleteNotification(User user, long matchId, long teamId) {
+        Notification notification = notificationRepository.findByTeamIdAndMatchId(teamId, matchId);
+        notificationRepository.delete(notification);
+    }
+
+    @Override
     public HashMap<Long, Notification> organizeNotifications(List<Notification> notifications) {
         HashMap<Long, Notification> organizedNotifications = new HashMap<>();
         for(Notification notification : notifications){

@@ -19,7 +19,10 @@
             <h1 th:if="${errors}">Something went wrong! Please try again later!</h1>
             <div th:if="!${errors}" class="game-list">
                 <h1 th:text="${game.name}">Game</h1>
-                <h2 th:text="${team.name} + ' upcoming matches'">Upcoming matches</h2>
+                <h2>
+                    <img th:if="${team.imageUrl != null}" class="team-h-img" th:title="${team.name}" th:src="${team.imageUrl}"></img>
+                    <span th:text="${team.name} + ' upcoming matches'">Upcoming matches</span>
+                </h2>
                 <table th:if="${upcomingMatches != null}" class="table match-wrapper">
                     <thead class="thead-light">
                     <tr>
@@ -51,8 +54,11 @@
                                 </span>
                         </td>
                         <td>
-                            <form method="POST" th:action="@{/registered/notifications(teamId=${team.id}, matchId=${match.id})}">
+                            <form method="POST" th:if="!${notifications.get(match.id)}" th:action="@{/registered/notifications(teamId=${team.id}, matchId=${match.id})}">
                                 <button type="submit" name="submit" value="value" class="link-button">Set notification</button>
+                            </form>
+                            <form method="POST" th:if="${notifications.get(match.id)}" th:action="@{/registered/notifications/delete(teamId=${team.id}, matchId=${match.id})}">
+                                <button type="submit" name="submit" value="value" class="link-button">Remove notification</button>
                             </form>
                         </td>
                     </tr>

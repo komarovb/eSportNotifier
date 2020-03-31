@@ -47,6 +47,16 @@ public class RegisteredController {
 //        return "redirect:/registered/notifications";
     }
 
+    @RequestMapping(value = "/registered/notifications/delete", method = RequestMethod.POST)
+    public String deleteNotification(@RequestParam(value="teamId") long teamId, @RequestParam(value="matchId") long matchId, HttpServletRequest request, Authentication authentication) {
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        notificationsService.deleteNotification(user, matchId, teamId);
+        // Trick to redirect back to the previous URL
+        return "redirect:" + request.getHeader("Referer");
+//        return "redirect:/registered/notifications";
+    }
+
     @RequestMapping(value = "/registered/{gameId}/{teamId}", method = RequestMethod.GET)
     public String getGamesForTeam(Model model, @PathVariable(value="gameId") long gameId, @PathVariable(value="teamId") long teamId, Authentication authentication) {
         String username = authentication.getName();

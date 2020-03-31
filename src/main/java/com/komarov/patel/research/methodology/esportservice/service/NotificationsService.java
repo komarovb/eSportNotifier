@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface NotificationsService {
     void setNotification(User user, long matchId, long teamId);
+    void deleteNotification(User user, long matchId, long teamId);
 
     HashMap<Long, Notification> organizeNotifications(List<Notification> notifications);
 }
