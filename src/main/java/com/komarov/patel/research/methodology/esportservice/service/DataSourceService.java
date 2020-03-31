@@ -11,8 +11,10 @@ public interface DataSourceService {
     List<Game> upcomingMatches();
     List<Match> upcomingMatches(Game game, HashMap<String, String> params);
     List<Match> upcomingMatches(Game game, Team team);
+    List<Match> upcomingMatches(long gameId, int page);
 
     List<Game> pastMatches();
     List<Match> pastMatches(Game game, HashMap<String, String> params);
     List<Match> pastMatches(Game game, Team team);
+    List<Match> pastMatches(long gameId, int page);
 }

@@ -1,6 +1,7 @@
 package com.komarov.patel.research.methodology.esportservice.model;
 
 import lombok.Data;
+import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,8 +12,8 @@ public class Match {
     // Match properties
     private Date beginAt;
     private Date endAt;
-    private String winner;
-    private String winnerId;
+    private Team winner;
+    private long winnerId;
     private String name;
     private String matchType;
 
@@ -22,4 +23,14 @@ public class Match {
     private long leagueId;
     private String leagueName;
     private String leagueImg;
+
+    public void determineWinner() {
+        if(teams == null || winnerId == 0) {
+            this.winner = null;
+        } else {
+            for(Team t : teams) {
+                if(t.getId() == winnerId) winner = t;
+            }
+        }
+    }
 }

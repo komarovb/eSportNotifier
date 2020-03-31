@@ -18,4 +18,8 @@ public class Team {
         this.name = name;
         this.imageUrl = imageUrl;
     }
+
+    public String toString() {
+        return this.name;
+    }
 }

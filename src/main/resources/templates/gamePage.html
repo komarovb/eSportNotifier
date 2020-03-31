@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+
+    <title th:text="${gameName} + ' matches'">Game matches</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h1 th:if="${errors}">Something went wrong! Please try again later!</h1>
+            <div th:if="!${errors}" class="game-list">
+                <h1 th:text="${gameName}">Games</h1>
+                <h2>Upcoming matches</h2>
+                <table th:if="${upcomingMatches != null}" class="table match-wrapper">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Match name</th>
+                        <th scope="col">Participating Teams</th>
+                        <th scope="col">Match date</th>
+                        <th scope="col">League</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="match : ${upcomingMatches}">
+                        <td th:text="${match.name}">Name...</td>
+                        <td class="teams">
+                            <div>
+                                [<span th:each="team, iterStat : ${match.teams}"
+                                       th:text="${iterStat.last}? ${team.name} : ${team.name} + ', '">Team name...</span>]
+                            </div>
+                        </td>
+                        <!--                            <td th:text="${match.teams}">Team 1...</td>-->
+                        <!--                            <td>VS</td>-->
+                        <!--                            <td th:text="${match.teams}">Team 2...</td>-->
+                        <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>
+                        <td th:text="${match.leagueName}">League...</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h2>Past matches</h2>
+                <table th:if="${pastMatches != null}" class="table match-wrapper">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Match name</th>
+                        <th scope="col">Participating Teams</th>
+                        <th scope="col">Winner</th>
+                        <th scope="col">Match date</th>
+                        <th scope="col">League</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="match : ${pastMatches}">
+                        <td th:text="${match.name}">Name...</td>
+                        <td class="teams">
+                            <div>
+                                [<span th:each="team, iterStat : ${match.teams}"
+                                       th:text="${iterStat.last}? ${team.name} : ${team.name} + ', '">Team name...</span>]
+                            </div>
+                        </td>
+                        <!--                            <td th:text="${match.teams}">Team 1...</td>-->
+                        <!--                            <td>VS</td>-->
+                        <!--                            <td th:text="${match.teams}">Team 2...</td>-->
+                        <td th:text="${match.winner?.name}">Winner...</td>
+                        <td th:text="${#dates.format(match.endAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>
+                        <td th:text="${match.leagueName}">League...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>
+</html>

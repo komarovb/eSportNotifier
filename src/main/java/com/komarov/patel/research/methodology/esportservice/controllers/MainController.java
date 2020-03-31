@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.BufferedReader;
@@ -48,9 +49,23 @@ public class MainController {
     /**
      * Public endpoint returning the next matches for a selected eSport discipline
      */
-    @RequestMapping("/upcoming/{gameId}")
-    @ResponseBody
-    public String getUpcomingMatches(@PathVariable(value = "gameId") String gameId) {
-        return "Greetings from the game: " + gameId + "!";
+    @RequestMapping("/game/{gameId}")
+    public String getUpcomingMatches(Model model, @PathVariable(value = "gameId") String gameId, @RequestParam(required = false) String pageNum) {
+        long gameIdentifier = Long.parseLong(gameId);
+        int page = 1;
+        if(pageNum != null) {
+            page = Integer.parseInt(pageNum);
+        }
+        List<Match> upcomingMatches = pandaService.upcomingMatches(gameIdentifier, page);
+        List<Match> pastMatches = pandaService.pastMatches(gameIdentifier, page);
+        if(upcomingMatches!= null && pastMatches != null) {
+            model.addAttribute("upcomingMatches", upcomingMatches);
+            model.addAttribute("pastMatches", pastMatches);
+            model.addAttribute("gameName", gameRepository.findById(gameIdentifier).getName());
+            model.addAttribute("errors", false);
+        } else {
+            model.addAttribute("errors", true);
+        }
+        return "gamePage";
     }
 }
