@@ -229,7 +229,6 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
                         teams.add(new Team(teamId, teamName, teamImage));
                     }
                 }
-
                 // Creating new Match object
                 Match match = new Match();
                 match.setId(id);

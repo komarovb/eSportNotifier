@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @Controller
 public class UserController {
     @Autowired
@@ -23,18 +21,15 @@ public class UserController {
     public String registration(@ModelAttribute("user") User user, BindingResult result) {
 
         User existing = userService.findByUsername(user.getUsername());
-
         if(existing != null) {
             result.rejectValue("username", null, "There is already an account registered with that username");
         }
         if(!user.getPassword().equals(user.getPasswordConfirm())) {
             result.rejectValue("password", null, "There password and confirmation DO NOT MATCH!");
         }
-
         if (result.hasErrors()){
             return "registration";
         }
-
         userService.save(user);
 
         //securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());

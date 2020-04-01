@@ -42,7 +42,8 @@ public class RegisteredController {
     }
 
     @RequestMapping(value = "/registered/notifications", method = RequestMethod.POST)
-    public String setNotification(@RequestParam(value="teamId") long teamId, @RequestParam(value="matchId") long matchId, HttpServletRequest request, Authentication authentication) {
+    public String setNotification(@RequestParam(value="teamId") long teamId, @RequestParam(value="matchId") long matchId,
+                                  HttpServletRequest request, Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         notificationsService.setNotification(user, matchId, teamId);
@@ -55,7 +56,8 @@ public class RegisteredController {
     }
 
     @RequestMapping(value = "/registered/notifications/delete", method = RequestMethod.POST)
-    public String deleteNotification(@RequestParam(value="teamId") long teamId, @RequestParam(value="matchId") long matchId, HttpServletRequest request, Authentication authentication) {
+    public String deleteNotification(@RequestParam(value="teamId") long teamId, @RequestParam(value="matchId") long matchId,
+                                     HttpServletRequest request, Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         notificationsService.deleteNotification(user, matchId, teamId);
@@ -66,7 +68,8 @@ public class RegisteredController {
     }
 
     @RequestMapping(value = "/registered/{gameId}/{teamId}", method = RequestMethod.GET)
-    public String getGamesForTeam(Model model, @PathVariable(value="gameId") long gameId, @PathVariable(value="teamId") long teamId, Authentication authentication) {
+    public String getGamesForTeam(Model model, @PathVariable(value="gameId") long gameId, @PathVariable(value="teamId")
+            long teamId, Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         Game game = gameRepository.findById(gameId);

@@ -1,9 +1,6 @@
 package com.komarov.patel.research.methodology.esportservice.model;
 
 import lombok.Data;
-import org.springframework.security.core.parameters.P;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
