@@ -20,6 +20,7 @@ public class Notification {
     private long gameId;
     private long matchId;
     private Date matchStart;
+    private String matchName;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)

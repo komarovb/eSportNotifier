@@ -41,10 +41,10 @@ public class RegisteredController {
     @RequestMapping(value = "/registered/notifications", method = RequestMethod.POST)
     public String setNotification(@RequestParam(value="teamId") long teamId, @RequestParam(value="matchId") long matchId,
                                   @RequestParam(value="gameId") long gameId, @RequestParam(value="beginAt") Date beginAt,
-                                  HttpServletRequest request, Authentication authentication) {
+                                  @RequestParam(value="matchName") String matchName, HttpServletRequest request, Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
-        notificationsService.setNotification(user, matchId, teamId, gameId, beginAt);
+        notificationsService.setNotification(user, matchId, teamId, gameId, beginAt, matchName);
         // Trick to redirect back to the previous URL
         return "redirect:" + request.getHeader("Referer");
 //        return "redirect:/registered/notifications";

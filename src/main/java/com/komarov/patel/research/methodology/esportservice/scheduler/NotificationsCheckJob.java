@@ -20,7 +20,11 @@ public class NotificationsCheckJob implements Job {
 
         logger.info("Job - {} - fired {}", context.getJobDetail().getKey().getName(), context.getFireTime());
 
-        jobService.checkAllNotifications();
+        int emails = jobService.checkAllNotifications();
+
+        if(emails < 0) {
+            logger.info("There was some problem during job execution!");
+        }
 
         logger.info("Next job scheduled for {}", context.getNextFireTime());
     }

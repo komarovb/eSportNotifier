@@ -50,7 +50,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>
+                        <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy hh:mm a')}">Date...</td>
                         <td>
                                 <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>
@@ -58,7 +58,7 @@
                                 </span>
                         </td>
                         <td>
-                            <form method="POST" th:if="!${notifications.get(match.id)}" th:action="@{/registered/notifications(teamId=${team.id}, matchId=${match.id}, gameId=${game.id}, beginAt=${match.beginAt})}">
+                            <form method="POST" th:if="!${notifications.get(match.id)}" th:action="@{/registered/notifications(teamId=${team.id}, matchId=${match.id}, gameId=${game.id}, beginAt=${match.beginAt}, matchName=${match.name})}">
                                 <button type="submit" name="submit" value="value" class="link-button">Set notification</button>
                             </form>
                             <form method="POST" th:if="${notifications.get(match.id)}" th:action="@{/registered/notifications/delete(teamId=${team.id}, matchId=${match.id})}">
@@ -98,7 +98,7 @@
                             </div>
                         </td>
                         <td th:text="${match.winner?.name}">Winner...</td>
-                        <td th:text="${#dates.format(match.endAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>
+                        <td th:text="${#dates.format(match.endAt, 'dd-MM-yyyy hh:mm a')}">Date...</td>
                         <td>
                                 <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>

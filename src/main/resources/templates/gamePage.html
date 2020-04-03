@@ -47,7 +47,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>
+                        <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy hh:mm a')}">Date...</td>
                         <td>
                                 <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>
@@ -87,7 +87,7 @@
                             </div>
                         </td>
                         <td th:text="${match.winner?.name}">Winner...</td>
-                        <td th:text="${#dates.format(match.endAt, 'dd-MM-yyyy HH:mm a')}">Date...</td>
+                        <td th:text="${#dates.format(match.endAt, 'dd-MM-yyyy hh:mm a')}">Date...</td>
                         <td>
                                 <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>

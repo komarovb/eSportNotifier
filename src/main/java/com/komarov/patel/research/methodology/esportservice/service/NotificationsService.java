@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface NotificationsService {
-    void setNotification(User user, long matchId, long teamId, long gameId, Date beginAt);
+    void setNotification(User user, long matchId, long teamId, long gameId, Date beginAt, String matchName);
     void deleteNotification(User user, long matchId, long teamId);
 
     int checkAllNotifications();

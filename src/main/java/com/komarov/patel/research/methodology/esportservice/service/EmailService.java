@@ -1,5 +1,7 @@
 package com.komarov.patel.research.methodology.esportservice.service;
 
+import com.komarov.patel.research.methodology.esportservice.model.Match;
+import com.komarov.patel.research.methodology.esportservice.model.Notification;
 import com.komarov.patel.research.methodology.esportservice.model.User;
 
 public interface EmailService {
@@ -7,5 +9,5 @@ public interface EmailService {
 
     void sendInitialNotification(User user);
 
-    void sendNotification(User user);
+    boolean sendNotification(Notification notification, Match match, boolean postponed);
 }
