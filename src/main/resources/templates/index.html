@@ -29,7 +29,8 @@
                     <h2><a class="game-link" th:href="@{/game/{gameId}(gameId = ${game.id})}">
                         <span th:text="${game.name}"></span>
                     </a></h2>
-                    <table th:if="${game.matches != null}" class="table match-wrapper">
+                    <div th:if="${game.matches == null || game.matches.size()==0}">No upcoming matches were found!</div>
+                    <table th:if="${game.matches != null && game.matches.size()>0}" class="table match-wrapper">
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">Match name</th>
@@ -56,7 +57,7 @@
                                     </a>
                                 </div>
                             </td>
-                            <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy hh:mm a')}">Date...</td>
+                            <td th:text="${#dates.format(match.beginAt, 'yyyy-MM-dd hh:mm a')}">Date...</td>
                             <td>
                                 <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>

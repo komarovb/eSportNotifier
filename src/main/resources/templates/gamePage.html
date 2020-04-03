@@ -20,7 +20,8 @@
             <div th:if="!${errors}" class="game-list">
                 <h1 th:text="${game.name}">Games</h1>
                 <h2>Upcoming matches</h2>
-                <table th:if="${upcomingMatches != null}" class="table match-wrapper">
+                <div th:if="${upcomingMatches == null || upcomingMatches.size()==0}">No upcoming matches were found!</div>
+                <table th:if="${upcomingMatches != null && upcomingMatches.size()>0}" class="table match-wrapper">
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">Match name</th>
@@ -47,7 +48,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td th:text="${#dates.format(match.beginAt, 'dd-MM-yyyy hh:mm a')}">Date...</td>
+                        <td th:text="${#dates.format(match.beginAt, 'yyyy-MM-dd hh:mm a')}">Date...</td>
                         <td>
                                 <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>
@@ -87,7 +88,7 @@
                             </div>
                         </td>
                         <td th:text="${match.winner?.name}">Winner...</td>
-                        <td th:text="${#dates.format(match.endAt, 'dd-MM-yyyy hh:mm a')}">Date...</td>
+                        <td th:text="${#dates.format(match.endAt, 'yyyy-MM-dd hh:mm a')}">Date...</td>
                         <td>
                                 <span style="padding-right:3px; padding-top: 3px; display:inline-block;">
                                     <span th:if="${match.leagueImg == null}" th:text="${match.leagueName}"></span>

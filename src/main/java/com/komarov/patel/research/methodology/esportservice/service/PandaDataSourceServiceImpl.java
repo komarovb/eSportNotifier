@@ -51,6 +51,7 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
     public List<Match> upcomingMatches(Game game, HashMap<String, String> params) {
         String urlBit = "/matches/upcoming";
         String gameSlug = game.getGameSlug();
+        params.put("sort", "begin_at");
         String requestUrl = buildPandaUrl(urlBit, gameSlug, params);
         return getMatches(requestUrl);
     }
@@ -88,6 +89,7 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
     public List<Match> pastMatches(Game game, HashMap<String, String> params) {
         String urlBit = "/matches/past";
         String gameSlug = game.getGameSlug();
+        params.put("sort", "-end_at");
         String requestUrl = buildPandaUrl(urlBit, gameSlug, params);
         return getMatches(requestUrl);
     }
@@ -175,7 +177,7 @@ public class PandaDataSourceServiceImpl implements DataSourceService{
             requestUrl.append("&");
         }
         requestUrl.append(tokenBit);
-        return requestUrl.toString();
+        return requestUrl.toString().replace(" ", "%20");
     }
 
     private List<Match> getMatches(String requestUrl) {

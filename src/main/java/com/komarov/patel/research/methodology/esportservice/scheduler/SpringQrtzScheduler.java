@@ -69,7 +69,8 @@ public class SpringQrtzScheduler {
         SimpleTriggerFactoryBean trigger = new SimpleTriggerFactoryBean();
         trigger.setJobDetail(job);
 
-        int frequencyInSec = 30;
+        // Set up notification check every 10 minutes
+        int frequencyInSec = 600;
         logger.info("Configuring our job to fire every {} seconds", frequencyInSec);
 
         trigger.setRepeatInterval(frequencyInSec * 1000);
