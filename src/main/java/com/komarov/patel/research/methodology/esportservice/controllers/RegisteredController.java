@@ -32,12 +32,6 @@ public class RegisteredController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(value = "/registered/notifications", method = RequestMethod.GET)
-    @ResponseBody
-    public String getNotifications() {
-        return "All of your notification would show here!";
-    }
-
     @RequestMapping(value = "/registered/notifications", method = RequestMethod.POST)
     public String setNotification(@RequestParam(value="teamId") long teamId, @RequestParam(value="matchId") long matchId,
                                   @RequestParam(value="gameId") long gameId, @RequestParam(value="beginAt") Date beginAt,

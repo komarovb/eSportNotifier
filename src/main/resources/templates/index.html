@@ -14,7 +14,10 @@
 <body>
 
 <div sec:authorize="isAuthenticated()">
-    Authenticated as <span sec:authentication="name"></span></div>
+    Authenticated as <span sec:authentication="name"></span>! <a href="/" th:href="@{/logout}">Logout</a></div>
+<div sec:authorize="!isAuthenticated()" class="form-group">
+    <span>Registered user? <a href="/" th:href="@{/login}">Login here</a></span>
+</div>
 
 <div class="container">
     <div class="row">

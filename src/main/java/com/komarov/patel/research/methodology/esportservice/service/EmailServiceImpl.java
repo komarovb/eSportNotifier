@@ -9,6 +9,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+
 @Component
 public class EmailServiceImpl implements EmailService{
 
@@ -38,18 +40,20 @@ public class EmailServiceImpl implements EmailService{
     public boolean sendNotification(Notification notification, Match match, boolean postponed) {
         User user = notification.getUser();
         if(user != null) {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+            String matchTime = format.format(notification.getMatchStart());
             String normalMsg = "Hello " + user.getName() + "!\n" +
                     "The time for one of your notification has come! Please see the details below.\n\n" +
                     "Match details:\n" +
                     notification.getMatchName() + " is going to start soon! Hurry up to your favorite broadcasting channel!\n" +
-                    "Anticipated start time: " + notification.getMatchStart() + "\n\n" +
+                    "Anticipated start time: " + matchTime + "\n\n" +
                     "Thank you!";
 
             String postponedMsg = "Hello " + user.getName() + "!\n" +
                     "The time for one of your notification has come! Please see the details below.\n\n" +
                     "Match details:\n" +
                     notification.getMatchName()  + " was postponed/cancelled! Please check our app to see the new match time and set a new notification!\n" +
-                    "Anticipated start time: " + notification.getMatchStart() + "\n\n" +
+                    "Anticipated start time: " + matchTime+ "\n\n" +
                     "Thank you!";
 
             // Selecting which message to send
