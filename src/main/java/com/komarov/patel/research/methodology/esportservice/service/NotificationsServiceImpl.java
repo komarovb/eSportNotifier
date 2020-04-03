@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class NotificationsServiceImpl implements NotificationsService {
     EmailService emailService;
 
     @Override
-    public void setNotification(User user, long matchId, long teamId) {
+    public void setNotification(User user, long matchId, long teamId, long gameId, Date beginAt) {
         logger.debug("Creating a notification!");
         Notification test = notificationRepository.findByTeamIdAndMatchId(teamId, matchId);
         if (test == null) {
@@ -32,6 +33,8 @@ public class NotificationsServiceImpl implements NotificationsService {
             notification.setUser(user);
             notification.setMatchId(matchId);
             notification.setTeamId(teamId);
+            notification.setGameId(gameId);
+            notification.setMatchStart(beginAt);
             notificationRepository.save(notification);
             user.getNotifications().add(notification);
 
@@ -51,6 +54,7 @@ public class NotificationsServiceImpl implements NotificationsService {
     @Override
     public int checkAllNotifications() {
         int count = 0;
+
         logger.info("Finishing notification check job {} notification email were sent!", count);
         return count;
     }

@@ -9,6 +9,12 @@ h1 {
 .error-message:first-letter {
     text-transform: capitalize;
 }
+.teams {
+    text-align: center;
+}
+.team-link {
+    cursor: pointer;
+}
 .game-link:hover {
     text-decoration: none !important;
 }

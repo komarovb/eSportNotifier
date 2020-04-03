@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,7 +17,9 @@ public class Notification {
     private Long id;
 
     private long teamId;
+    private long gameId;
     private long matchId;
+    private Date matchStart;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
