@@ -31,4 +31,11 @@ public class EmailServiceImpl implements EmailService{
         user.setInitialNotificationSent(true);
         userRepository.save(user);
     }
+
+    @Override
+    public void sendNotification(User user) {
+        this.sendSimpleEmail(user.getUsername(), "eSports Notification", "Notification!");
+        user.setInitialNotificationSent(true);
+        userRepository.save(user);
+    }
 }

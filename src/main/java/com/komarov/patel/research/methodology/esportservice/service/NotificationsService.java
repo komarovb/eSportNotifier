@@ -10,5 +10,7 @@ public interface NotificationsService {
     void setNotification(User user, long matchId, long teamId);
     void deleteNotification(User user, long matchId, long teamId);
 
+    int checkAllNotifications();
+
     HashMap<Long, Notification> organizeNotifications(List<Notification> notifications);
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class RegisteredController {
@@ -25,9 +24,6 @@ public class RegisteredController {
 
     @Autowired
     NotificationsService notificationsService;
-
-    @Autowired
-    EmailService emailService;
 
     @Autowired
     GameRepository gameRepository;
@@ -47,9 +43,6 @@ public class RegisteredController {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         notificationsService.setNotification(user, matchId, teamId);
-        if(!user.isInitialNotificationSent()){
-            emailService.sendInitialNotification(user);
-        }
         // Trick to redirect back to the previous URL
         return "redirect:" + request.getHeader("Referer");
 //        return "redirect:/registered/notifications";

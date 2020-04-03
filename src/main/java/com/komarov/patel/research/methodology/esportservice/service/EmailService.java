@@ -6,4 +6,6 @@ public interface EmailService {
     void sendSimpleEmail(String userEmail, String subject, String text);
 
     void sendInitialNotification(User user);
+
+    void sendNotification(User user);
 }
