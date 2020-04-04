@@ -52,7 +52,7 @@ public class EmailServiceImpl implements EmailService{
             String postponedMsg = "Hello " + user.getName() + "!\n" +
                     "The time for one of your notification has come! Please see the details below.\n\n" +
                     "Match details:\n" +
-                    notification.getMatchName()  + " was postponed/cancelled! Please check our app to see the new match time and set a new notification!\n" +
+                    notification.getMatchName()  + " was postponed/cancelled or passed already! Please check our app to see the new match time and set a new notification!\n" +
                     "Anticipated start time: " + matchTime+ "\n\n" +
                     "Thank you!";
 

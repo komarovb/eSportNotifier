@@ -58,7 +58,7 @@ public class NotificationsServiceImpl implements NotificationsService {
      *  Algorithm:
      *      1. Load all notifications
      *      2. If there are any which have match such that it starts within the next 10 minutes
-     *      3. Fetch upcoming matches and check if match still exists
+     *      3. Fetch upcoming matches from the datasource and check if match still exists
      *      4. If the match was postponed/cancelled send information email and delete notification
      *      5. If the match still exists send the notification emails and delete notification
      * @return Number of emails that have been sent
