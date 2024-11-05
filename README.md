@@ -1,2 +1,2 @@
 # eSportNotifier
-University project building a simple web application aggregating data about eSports mathces for CSGo and Dota 2.
+University project focused on building a simple web application that aggregates data about eSports matches for CS and Dota 2.
